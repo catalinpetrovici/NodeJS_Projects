@@ -6,6 +6,7 @@ const app = express();
 const tasks = require('./routes/tasks');
 
 // middleware
+app.use(express.static(`./public`));
 app.use(express.json());
 
 // Routes
