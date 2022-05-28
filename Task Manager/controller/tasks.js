@@ -1,6 +1,11 @@
-const getAllTasks = (req, res) => {
-  res.json(`get all tasks`);
+const Task = require(`../models/Task`);
+// An instance of a model is called a document
+
+const getAllTasks = async (req, res) => {
+  const task = await Task.create(req.body);
+  res.status(201).json({ task });
 };
+
 const createTask = (req, res) => {
   res.json(req.body);
 };
