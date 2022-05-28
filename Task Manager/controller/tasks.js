@@ -1,8 +1,14 @@
 const Task = require(`../models/Task`);
 // An instance of a model is called a document
+// Queries are Not Promises
 
-const getAllTasks = (req, res) => {
-  res.send('Get all tasks');
+const getAllTasks = async (req, res) => {
+  try {
+    const allTasks = await Task.find({});
+    res.status(201).json({ allTasks });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 const createTask = async (req, res) => {
@@ -14,8 +20,17 @@ const createTask = async (req, res) => {
   }
 };
 
-const getTask = (req, res) => {
-  res.json({ id: req.params.id });
+const getTask = async (req, res) => {
+  try {
+    const { id: taskID } = req.params;
+    const getTask = await Task.findOne({ _id: taskID });
+    if (!getTask)
+      return res.status(404).json({ msg: `No task with id: ${taskID}` });
+
+    res.status(201).json({ getTask });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 const updateTask = (req, res) => {
