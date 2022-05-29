@@ -27,7 +27,7 @@ const getAllProducts = async (req, res) => {
 
   // get all the products that have featured, etc.. true or false
   // and if there is no featured, etc... query we get all the products bcs we have an empty object
-  const { featured, company, name, sort, fields } = req.query;
+  const { featured, company, name, sort, fields, numericFilters } = req.query;
   const queryObject = {};
 
   if (featured) {
@@ -40,7 +40,31 @@ const getAllProducts = async (req, res) => {
     queryObject.name = { $regex: name, $options: 'i' };
   }
 
-  console.log(queryObject);
+  // Numeric Filters
+  if (numericFilters) {
+    const operatorMap = {
+      '>': '$gt',
+      '>=': '$gte',
+      '=': '$eq',
+      '<': '$lt',
+      '<=': '$lte',
+    };
+    const regEx = /\b(<|>|>=|=|<|<=)\b/g;
+    let filters = numericFilters.replace(
+      regEx,
+      (match) => `-${operatorMap[match]}-`
+    );
+
+    // filter only price && / || rating
+    const options = ['price', 'rating'];
+    filters = filters.split(',').forEach((item) => {
+      const [field, operator, value] = item.split('-');
+      if (options.includes(field)) {
+        queryObject[field] = { [operator]: Number(value) };
+      }
+    });
+  }
+
   let result = Product.find(queryObject);
 
   // Sorting does not affect the amount of items we're returning just the order in which they are displayed
