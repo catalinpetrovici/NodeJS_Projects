@@ -7,7 +7,13 @@ const getAllProductsStatic = async (req, res) => {
   // Basic Find: get the product with the name 'vase table'
   // const products = await Product.find({ name: 'vase table' });
 
-  res.status(200).json({ msg: products, nbHits: products.length });
+  const search = 'a';
+
+  const products = await Product.find({
+    // https://www.mongodb.com/docs/manual/reference/operator/query/regex/#mongodb-query-op.-regex
+    name: { $regex: search, $options: 'i' },
+  });
+  res.status(200).json({ products, nbHits: products.length });
 };
 
 const getAllProducts = async (req, res) => {
@@ -16,11 +22,20 @@ const getAllProducts = async (req, res) => {
 
   // get all the products that have featured true or false
   // and if there is no featured query we get all the products bcs we have an empty object
-  const { featured } = req.query;
+  const { featured, company, name } = req.query;
   const queryObject = {};
+
   if (featured) {
     queryObject.featured = featured === 'true' ? true : false;
   }
+  if (company) {
+    queryObject.company = company;
+  }
+  if (name) {
+    queryObject.name = { $regex: name, $options: 'i' };
+  }
+
+  console.log(queryObject);
   const products = await Product.find(queryObject);
   res.status(200).json({ msg: products, nbHits: products.length });
 };
