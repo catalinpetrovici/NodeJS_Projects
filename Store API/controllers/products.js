@@ -14,7 +14,10 @@ const getAllProductsStatic = async (req, res) => {
   //   });
 
   // Sort Alphabetical
-  const products = await Product.find({}).sort('name price');
+  //   const products = await Product.find({}).sort('name price');
+
+  // Display only selected fields
+  const products = await Product.find({}).select('name price');
   res.status(200).json({ products, nbHits: products.length });
 };
 
@@ -24,7 +27,7 @@ const getAllProducts = async (req, res) => {
 
   // get all the products that have featured true or false
   // and if there is no featured query we get all the products bcs we have an empty object
-  const { featured, company, name, sort } = req.query;
+  const { featured, company, name, sort, fields } = req.query;
   const queryObject = {};
 
   if (featured) {
@@ -47,6 +50,12 @@ const getAllProducts = async (req, res) => {
   } else {
     // sort by time
     result = result.sort('createdAt');
+  }
+
+  // Display only selected fields
+  if (fields) {
+    const fieldsList = fields.split(',').join(' ');
+    result = result.select(fieldsList);
   }
 
   const products = await result;
