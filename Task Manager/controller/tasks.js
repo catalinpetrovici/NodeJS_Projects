@@ -1,5 +1,6 @@
 const Task = require(`../models/Task`);
 const asyncWrapper = require('../middleware/async');
+const { createCustomError } = require('../errors/custom-error');
 // An instance of a model is called a document
 // Queries are Not Promises
 
@@ -16,11 +17,15 @@ const createTask = asyncWrapper(async (req, res) => {
   res.status(201).json({ task });
 });
 
-const getTask = asyncWrapper(async (req, res) => {
+const getTask = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params;
   const getTask = await Task.findOne({ _id: taskID });
-  if (!getTask)
-    return res.status(404).json({ msg: `No task with id: ${taskID}` });
+  if (!getTask) {
+    //custom error class
+    return next(createCustomError(`No task with id: ${taskID}`, 404));
+    // error from mongoose
+    // return res.status(404).json({ msg: `No task with id: ${taskID}` });
+  }
 
   res.status(201).json({ getTask });
 });
@@ -31,7 +36,12 @@ const updateTask = asyncWrapper(async (req, res) => {
     new: true,
     runValidators: true,
   });
-  if (!task) return res.status(404).json({ msg: `No task with id: ${taskID}` });
+  if (!task) {
+    //custom error class
+    return next(createCustomError(`No task with id: ${taskID}`, 404));
+    // error from mongoose
+    // return res.status(404).json({ msg: `No task with id: ${taskID}` });
+  }
 
   res.status(200).json({ task });
 });
