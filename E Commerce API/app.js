@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('express-async-errors'); // instead of writing try & catch in all controllers. we use express-async-errors
+const authRouter = require('./routes/authRoutes');
 
 // express
 const express = require('express');
@@ -22,6 +23,7 @@ app.use(express.json()); // access to json data in req.body
 app.get('/', (req, res) => {
   res.json({ msg: 'E-Commerce API' });
 });
+app.use('/api/v1/auth', authRouter);
 
 app.use(notFoundMiddleware); // 404 - if user is looking for a route that doesn't exist
 app.use(errorHandlerMiddleware); // error - if there is an error we want to apply it
