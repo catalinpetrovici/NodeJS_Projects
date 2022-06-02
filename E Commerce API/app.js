@@ -8,6 +8,7 @@ const app = express();
 
 // rest of the packages
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 // database & start
 const connectDB = require('./db/connect');
@@ -19,8 +20,10 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(morgan('tiny')); // debug => Example: GET / 304 - - 1.841 ms & GET /yes 404 30 - 0.609 ms
 app.use(express.json()); // access to json data in req.body
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get('/', (req, res) => {
+  console.log(req.signedCookies);
   res.json({ msg: 'E-Commerce API' });
 });
 app.use('/api/v1/auth', authRouter);
