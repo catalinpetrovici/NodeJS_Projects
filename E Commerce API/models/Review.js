@@ -1,10 +1,9 @@
-const { number } = require('joi');
 const mongoose = require('mongoose');
 
 const ReviewSchema = new mongoose.Schema(
   {
     rating: {
-      type: number,
+      type: Number,
       min: 1,
       max: 5,
       required: [true, 'Please provide rating'],
