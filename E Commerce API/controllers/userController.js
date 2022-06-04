@@ -27,7 +27,22 @@ const updateUser = async (req, res) => {
 };
 
 const updateUserPassword = async (req, res) => {
-  res.status(200).json({ msg: 'Update User Password', body: req.body });
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword)
+    throw new CustomError.BadRequestError('Please provide both values');
+
+  const user = await User.findOne({ _id: req.user.userId });
+
+  const isPasswordCorrect = await user.comparePassword(oldPassword);
+  if (!isPasswordCorrect)
+    throw new CustomError.UnauthenticatedError('Invalid Credential');
+
+  user.password = newPassword;
+
+  await user.save();
+
+  res.status(StatusCodes.OK).json({ msg: 'Success! Password Updated.' });
 };
 
 module.exports = {
