@@ -8,6 +8,7 @@ const app = express();
 // rest of the packages
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 
 // database & start
 const connectDB = require('./db/connect');
@@ -25,6 +26,9 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 app.use(morgan('tiny')); // debug => Example: GET / 304 - - 1.841 ms & GET /yes 404 30 - 0.609 ms
 app.use(express.json()); // access to json data in req.body
 app.use(cookieParser(process.env.JWT_SECRET));
+
+app.use(express.static(`./public`));
+app.use(fileUpload());
 
 app.get('/', (req, res) => {
   console.log(req.signedCookies);
