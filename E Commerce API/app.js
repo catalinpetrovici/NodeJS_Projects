@@ -1,7 +1,5 @@
 require('dotenv').config();
 require('express-async-errors'); // instead of writing try & catch in all controllers. we use express-async-errors
-const authRouter = require('./routes/authRoutes');
-const userRouter = require('./routes/userRoutes');
 
 // express
 const express = require('express');
@@ -14,6 +12,11 @@ const cookieParser = require('cookie-parser');
 // database & start
 const connectDB = require('./db/connect');
 const startServer = require('./db/startServer');
+
+// routers
+const authRouter = require('./routes/authRoutes');
+const userRouter = require('./routes/userRoutes');
+const productRouter = require('./routes/productRoutes');
 
 // middleware
 const notFoundMiddleware = require('./middleware/not-found');
@@ -29,6 +32,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/products', productRouter);
 
 app.use(notFoundMiddleware); // 404 - if user is looking for a route that doesn't exist
 app.use(errorHandlerMiddleware); // error - if there is an error we want to apply it
