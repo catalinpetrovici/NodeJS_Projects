@@ -18,6 +18,7 @@ const startServer = require('./db/startServer');
 const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
 const productRouter = require('./routes/productRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 // middleware
 const notFoundMiddleware = require('./middleware/not-found');
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.use(notFoundMiddleware); // 404 - if user is looking for a route that doesn't exist
 app.use(errorHandlerMiddleware); // error - if there is an error we want to apply it
