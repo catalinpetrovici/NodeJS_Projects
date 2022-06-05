@@ -57,6 +57,10 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
     // only admin can create a Product
     user: {
       type: mongoose.Types.ObjectId,
