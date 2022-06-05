@@ -29,7 +29,15 @@ const createReview = async (req, res) => {
 };
 
 const getAllReviews = async (req, res) => {
-  const reviews = await Review.find({});
+  const reviews = await Review.find({})
+    .populate({
+      path: 'product',
+      select: 'name company price',
+    })
+    .populate({
+      path: 'user',
+      select: 'name',
+    });
 
   res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
 };
@@ -37,6 +45,8 @@ const getAllReviews = async (req, res) => {
 const getSingleReview = async (req, res) => {
   const { id: reviewId } = req.params;
 
+  // Mongoose Virtuals
+  // properties that do not persist or are stored in database. They only exist logically
   const review = await Review.findOne({ _id: reviewId });
 
   if (!review)
