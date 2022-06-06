@@ -343,6 +343,7 @@
 #### Create Docs
 
 - [] [Docgen Library] (https://github.com/thedevsaddam/docgen)
+- [] [Using docGen on Windows to Generate Postman API Documentation](https://sedx876.medium.com/using-docgen-on-windows-to-generate-postman-api-documentation-c4fc1724fef2)
 - [] Export Postman Collection
 - [] docgen build -i fileName.json -o index.html
 - [] create index.html in public
