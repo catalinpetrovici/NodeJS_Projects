@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"george\",\r\n    \"email\": \"george@gmail.com\",\r\n    \"password\": \"secret\"\r\n}",
+							"raw": "{\r\n    \"name\": \"catalin\",\r\n    \"email\": \"catalin@gmail.com\",\r\n    \"password\": \"secret\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,7 +164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"georgee\",\r\n    \"email\": \"georgee@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"name\": \"newNameCatalin\",\r\n    \"email\": \"catalin@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +191,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"oldPassword\": \"secret\",\r\n    \"newPassword\": \"newsecret\"\r\n}",
+							"raw": "{\r\n    \"oldPassword\": \"secret\",\r\n    \"newPassword\": \"newSecret\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,21 +218,9 @@
 			"item": [
 				{
 					"name": "Get All Products",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tax\": 399,\r\n    \"shippingFee\": 499,\r\n    \"items\": [\r\n      {\r\n        \"name\": \"accent chair\",\r\n        \"price\": 2599,\r\n        \"image\": \"https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160\",\r\n        \"amount\": 34,\r\n        \"product\": \"6126ad3424d2bd09165a68c8\"\r\n      }\r\n    ]\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:5000/products",
 							"host": [
@@ -252,7 +240,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Product number 1\",\r\n    \"price\": 25999,\r\n    \"colors\": [\"#ff0000\", \"#00ff00\", \"#0000ff\"],\r\n    \"company\": \"marcos\",\r\n    \"description\": \"Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge\",\r\n    \"category\": \"office\"\r\n  }",
+							"raw": "{\r\n    \"name\": \"albany sectional\",\r\n    \"price\": 109999,\r\n    \"image\": \"https://dl.airtable.com/.attachmentThumbnails/0be1af59cf889899b5c9abb1e4db38a4/d631ac52\",\r\n    \"colors\": [\"#000\", \"#ffb900\"],\r\n    \"company\": \"liddy\",\r\n    \"description\": \"Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge\",\r\n    \"category\": \"kitchen\"\r\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -422,7 +410,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"product\": \"629cb69bec80ba35700d73af\",\r\n    \"rating\": \"1\",\r\n    \"title\": \"Ok product\",\r\n    \"comment\": \"ok product\"\r\n}",
+							"raw": "{\r\n    \"product\": \"629db690c0d78337607491a6\",\r\n    \"rating\": \"3\",\r\n    \"title\": \"Ok product\",\r\n    \"comment\": \"Ok product\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -466,7 +454,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": \"5\",\r\n    \"title\": \"Ok ok ok product\",\r\n    \"comment\": \"ok ok ok product\"\r\n}",
+							"raw": "{\r\n    \"rating\": \"5\",\r\n    \"title\": \"Very good product\",\r\n    \"comment\": \"Very good product\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,6 +502,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tax\": 499,\r\n    \"shippingFee\": 799,\r\n    \"items\": [\r\n      {\r\n        \"name\": \"bed\",\r\n        \"price\": 2699,\r\n        \"image\": \"https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160\",\r\n        \"amount\": 3,\r\n        \"product\": \"6126ad3424d2bd09165a68c7\"\r\n      },\r\n      {\r\n        \"name\": \"chair\",\r\n        \"price\": 2999,\r\n        \"image\": \"https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160\",\r\n        \"amount\": 2,\r\n        \"product\": \"6126ad3424d2bd09165a68c4\"\r\n      }\r\n    ]\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5000/orders/",
 							"host": [
@@ -532,14 +529,23 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paimentIndentId\": \"randomId\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:5000/orders/1231",
+							"raw": "http://localhost:5000/orders/629dd4c9ccaf25ffb0c29dc6",
 							"host": [
 								"http://localhost:5000"
 							],
 							"path": [
 								"orders",
-								"1231"
+								"629dd4c9ccaf25ffb0c29dc6"
 							]
 						}
 					},
@@ -569,13 +575,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/orders/123",
+							"raw": "http://localhost:5000/orders/629dd4c9ccaf25ffb0c29dc6",
 							"host": [
 								"http://localhost:5000"
 							],
 							"path": [
 								"orders",
-								"123"
+								"629dd4c9ccaf25ffb0c29dc6"
 							]
 						}
 					},
