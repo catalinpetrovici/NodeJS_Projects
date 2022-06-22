@@ -15,13 +15,40 @@ chat.addEventListener("submit", function (e) {
 });
 
 async function postNewMsg(user, text) {
-  // post to /poll a new message
-  // write code here
+  const data = {
+    user,
+    text,
+  };
+
+  const options = {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const res = await fetch("/poll", options);
+  const json = await res.json();
+  console.log(json);
 }
 
 async function getNewMsgs() {
-  // poll the server
-  // write code here
+  let json;
+  try {
+    const res = await fetch("/poll");
+    json = await res.json();
+
+    console.log(json);
+  } catch (error) {
+    console.log("polling error", error);
+    // throw new Error(error);
+  }
+
+  allChat = json.msg;
+  render();
+
+  // call itself
+  // setTimeout(getNewMsgs, INTERVAL);
 }
 
 function render() {
@@ -38,4 +65,17 @@ const template = (user, msg) =>
   `<li class="collection-item"><span class="badge">${user}</span>${msg}</li>`;
 
 // make the first request
-getNewMsgs();
+// getNewMsgs();
+
+// pause on unfocus window // pause requestAnimationFrame
+let timeToMakeNextRequest = 0;
+async function reqAnimFrameTimer(time) {
+  if (timeToMakeNextRequest <= time) {
+    await getNewMsgs();
+    timeToMakeNextRequest = time + INTERVAL;
+    console.log(time, timeToMakeNextRequest);
+  }
+
+  requestAnimationFrame(reqAnimFrameTimer);
+}
+requestAnimationFrame(reqAnimFrameTimer);
