@@ -63,6 +63,7 @@ async function rafTimer(time) {
   if (timeToMakeNextRequest <= time) {
     await getNewMsgs();
     timeToMakeNextRequest = time + INTERVAL + failedTries * BACKOFF;
+    console.log(timeToMakeNextRequest);
   }
   requestAnimationFrame(rafTimer);
 }

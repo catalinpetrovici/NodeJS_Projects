@@ -38,9 +38,18 @@ async function getNewMsgs() {
     const res = await fetch("/poll");
     json = await res.json();
 
+    if (res.status >= 400) {
+      throw new Error("request did not succeed: " + res.status);
+    }
+
+    allChat = json.msg;
+    render();
+    failedTries = 0;
+
     console.log(json);
   } catch (error) {
-    console.log("polling error", error);
+    // console.log("polling error", error);
+    failedTries++;
     // throw new Error(error);
   }
 
@@ -68,11 +77,15 @@ const template = (user, msg) =>
 // getNewMsgs();
 
 // pause on unfocus window // pause requestAnimationFrame
+const BACKOFF = 1000;
 let timeToMakeNextRequest = 0;
+let failedTries = 0;
 async function reqAnimFrameTimer(time) {
   if (timeToMakeNextRequest <= time) {
     await getNewMsgs();
-    timeToMakeNextRequest = time + INTERVAL;
+    const timeLog = failedTries ** 2 * BACKOFF;
+    console.log(timeLog);
+    timeToMakeNextRequest = time + INTERVAL + timeLog;
     console.log(time, timeToMakeNextRequest);
   }
 
