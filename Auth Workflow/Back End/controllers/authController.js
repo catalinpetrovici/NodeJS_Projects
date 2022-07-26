@@ -15,11 +15,21 @@ const register = async (req, res) => {
   const isFirstAccount = (await User.countDocuments({})) === 0;
   const role = isFirstAccount ? 'admin' : 'user';
 
-  const user = await User.create({ name, email, password, role });
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
+  const verificationToken = 'fake token';
 
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  const user = await User.create({
+    name,
+    email,
+    password,
+    role,
+    verificationToken,
+  });
+
+  // send verification token back only while testing in postman
+  res.status(StatusCodes.CREATED).json({
+    msg: 'Success! Please check your email to verify',
+    verificationToken: user.verificationToken,
+  });
 };
 
 const login = async (req, res) => {
