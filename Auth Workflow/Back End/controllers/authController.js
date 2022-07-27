@@ -99,12 +99,17 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.cookie('token', 'Logout', {
-    httpOnly: true,
-    expires: new Date(Date.now() + 5 * 1000),
-  });
+  await Token.findOneAndDelete({ user: req.user.userId });
 
-  res.status(StatusCodes.OK).json({ msg: 'User Logged Out!' });
+  res.cookie('accessToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.cookie('refreshToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
 
 const verifyEmail = async (req, res) => {

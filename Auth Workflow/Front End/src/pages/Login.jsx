@@ -34,7 +34,7 @@ function Login() {
       });
       setLoading(false);
       saveUser(data.user);
-      history.push('/dashboard');
+      history('/dashboard');
     } catch (error) {
       showAlert({ text: error.response.data.msg });
       setLoading(false);

@@ -4,13 +4,6 @@ import { useGlobalContext } from '../context';
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { user } = useGlobalContext();
-  return (
-    <Route
-      {...rest}
-      render={() => {
-        return user ? children : <Navigate to='/'></Navigate>;
-      }}
-    ></Route>
-  );
+  return user ? children : <Navigate to='/'></Navigate>;
 };
 export default PrivateRoute;
